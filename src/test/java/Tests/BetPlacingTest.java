@@ -14,7 +14,7 @@ public class BetPlacingTest extends BaseTest {
     @DataProvider(name = "data for a bet")
     public static Object[][] insertData() {
         return new Object[][]{
-                {"LITHUANIAN", "RESPONSIVE", "15,00"}
+                {"LITHUANIAN", "RESPONSIVE", "1"}
         };
     }
 
