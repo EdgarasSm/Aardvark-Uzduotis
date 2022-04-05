@@ -18,7 +18,11 @@ public class MainPage {
     public By languageList = By.cssSelector(".multi-column .dropdown-menu li");
     public By rightNavbar = By.className("navbar-right");
     public By rightNavBarList = By.cssSelector("li a");
-    public By optionsSection = By.className("CkhZpLkj3C95O09mvldE");
+    public By amountInput = By.id("amount-input");
+    public By addRandomInBetsLip = By.cssSelector("[data-qa='button-add-random-betting-option']");
+    public By placeBetButton = By.className("place-bet-button");
+    public By betAcceptedMsg = By.className("UNDqg9DOBn0zrKbJbM3Q");
+
 
 
     public List<String> getNavigationList() {
@@ -28,14 +32,13 @@ public class MainPage {
                 .collect(Collectors.toList());
     }
 
-    public void selectLanguage(String language) throws InterruptedException {
+    public void selectLanguage(String language) {
         ActionUtils.clickOn(languageDropdownButton);
         WebElement languageDropdown = driver.findElement(languageDropdownButton);
         List<WebElement> languages = languageDropdown.findElements(languageList);
         WebElement currentLanguage = languages.stream().filter(i -> i.getText().contains(language)).findFirst().get();
         currentLanguage.click();
         System.out.println(currentLanguage);
-        Thread.sleep(5000);
     }
 
     public void clickOnScreenSize(String currentWindow) {
@@ -46,6 +49,6 @@ public class MainPage {
     }
 
     public void waitUntilOptionsWillBeClickable() {
-        WaitUtils.waitUntilELementWillBeClickable(By.className("i5kOCf6aVVpNQgj1FqpS"),50);
+        WaitUtils.waitUntilELementWillBeClickable(By.xpath("//*[@data-qa='area-game-item-1']"),50);
     }
 }

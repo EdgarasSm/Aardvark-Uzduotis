@@ -1,14 +1,11 @@
 package test.java.Tests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import test.java.Page.MainPage;
 import test.java.Utils.ActionUtils;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MainTestsForHeader extends BaseTest {
     MainPage mp = new MainPage();

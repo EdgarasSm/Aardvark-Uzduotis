@@ -21,7 +21,7 @@ public class ActionUtils {
     }
 
     /**
-     * Checking element is displayed
+     * Checking is element displayed
      * @param locator By
      * @return boolean
      */
