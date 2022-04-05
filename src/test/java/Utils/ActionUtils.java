@@ -1,9 +1,6 @@
 package test.java.Utils;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.UnhandledAlertException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 
 import static test.java.Tests.BaseTest.driver;
 
@@ -30,13 +27,14 @@ public class ActionUtils {
     }
 
     /**
-     * Enter data in field
+     * Enter data in input field
      *
      * @param locator By
      * @param data    String
      */
     public static void enterData(By locator, String data) {
-        driver.findElement(locator).sendKeys(data);
+       WebElement inputField = driver.findElement(locator);
+       inputField.sendKeys(data);
     }
 
     /**
@@ -71,6 +69,23 @@ public class ActionUtils {
      */
     public static void refreshPage() {
         driver.navigate().refresh();
+    }
+
+    /**
+     * Switch to specified frame
+     * @param locator By
+     */
+    public static void switchFrame(By locator  ) {
+        WebElement iframe = driver.findElement(locator);
+        driver.switchTo().frame(iframe);
+    }
+
+    /**
+     * Clears input field
+     * @param locator By
+     */
+    public static void clearInputField(By locator) {
+        driver.findElement(locator).clear();
     }
 
 }

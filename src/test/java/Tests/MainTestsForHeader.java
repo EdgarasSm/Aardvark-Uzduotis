@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import test.java.Page.MainPage;
 import test.java.Utils.ActionUtils;
+import test.java.Utils.WaitUtils;
 
 import java.util.List;
 
@@ -32,6 +33,14 @@ public class MainTestsForHeader extends BaseTest {
     public void printRightNavigationList () {
         List<String> rightNavigationList = mp.getNavigationList();
         System.out.println(rightNavigationList);
+    }
+
+    @Test(priority = 4)
+    public void checkIfVideoIsPlaying () {
+        ActionUtils.switchFrame(mp.betGamesIframe);
+        WaitUtils.waitForElementToBeLocated(mp.videoContent,15);
+        boolean videoIsVisible = ActionUtils.checkElementIsDisplayed(mp.videoContent);
+        Assert.assertTrue(videoIsVisible, "Something wrong, video doesn't show on page.");
     }
 
 }

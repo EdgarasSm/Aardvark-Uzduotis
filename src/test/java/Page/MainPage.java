@@ -1,14 +1,17 @@
 package test.java.Page;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import test.java.Utils.ActionUtils;
 import test.java.Utils.WaitUtils;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static test.java.Tests.BaseTest.driver;
+import static test.java.Utils.ActionUtils.*;
 
 public class MainPage {
 
@@ -21,7 +24,9 @@ public class MainPage {
     public By amountInput = By.id("amount-input");
     public By addRandomInBetsLip = By.cssSelector("[data-qa='button-add-random-betting-option']");
     public By placeBetButton = By.className("place-bet-button");
-    public By betAcceptedMsg = By.className("UNDqg9DOBn0zrKbJbM3Q");
+    public By betAcceptedMsg = By.cssSelector("[data-qa='text-bet-slip-notification']");
+    public By betGamesIframe = By.id("betgames_iframe");
+    public By videoContent = By.className("game-content");
 
 
 
@@ -38,7 +43,6 @@ public class MainPage {
         List<WebElement> languages = languageDropdown.findElements(languageList);
         WebElement currentLanguage = languages.stream().filter(i -> i.getText().contains(language)).findFirst().get();
         currentLanguage.click();
-        System.out.println(currentLanguage);
     }
 
     public void clickOnScreenSize(String currentWindow) {
@@ -48,7 +52,22 @@ public class MainPage {
         currentLanguage.click();
     }
 
-    public void waitUntilOptionsWillBeClickable() {
-        WaitUtils.waitUntilELementWillBeClickable(By.xpath("//*[@data-qa='area-game-item-1']"),50);
+    public void selectNumberFromSector() {
+        scrollDown();
+        clickOn(By.cssSelector("[data-qa='button-game-item-select-5']"));
+    }
+
+    public void waitTillOddsUnlock() {
+        WaitUtils.waitUntilElementIsDisplayedAndInDOM(By.cssSelector("[data-qa='text-odd-item-value']"),30);
+    }
+
+    public void scrollDown() {
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("window.scrollBy(0,450)");
+    }
+
+    public void enterBetAmount(String betAmount)  {
+        clickOn(amountInput);
+        enterData(amountInput, betAmount);
     }
 }

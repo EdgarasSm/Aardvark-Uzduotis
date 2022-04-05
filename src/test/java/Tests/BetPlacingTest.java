@@ -1,6 +1,5 @@
 package test.java.Tests;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -15,21 +14,23 @@ public class BetPlacingTest extends BaseTest {
     @DataProvider(name = "data for a bet")
     public static Object[][] insertData() {
         return new Object[][]{
-                {"LITHUANIAN", "TABLET", "DESKTOP", "10"}
+                {"LITHUANIAN", "RESPONSIVE", "15,00"}
         };
     }
 
     @Test(dataProvider = "data for a bet")
-    public void placeBetWithNumber(String language, String currentWindow, String currentWindow1, String betAmount) {
+    public void placeBetWithNumber(String language, String currentWindow, String betAmount) {
         mp.selectLanguage(language);
         mp.clickOnScreenSize(currentWindow);
-        mp.clickOnScreenSize(currentWindow1);
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
-        jse.executeScript("window.scrollBy(0,400)");
-        enterData(mp.amountInput, betAmount);
-        WaitUtils.waitUntilElementIsDisplayedAndInDOM(mp.placeBetButton, 15);
-        clickOn(mp.addRandomInBetsLip);
+        switchFrame(mp.betGamesIframe);
+        WaitUtils.waitUntilElementIsDisplayedAndInDOM(mp.addRandomInBetsLip, 30);
+        mp.scrollDown();
+        mp.waitTillOddsUnlock();
+        mp.enterBetAmount(betAmount);
+        mp.selectNumberFromSector();
         clickOn(mp.placeBetButton);
-        Assert.assertTrue(checkElementIsDisplayed(mp.betAcceptedMsg), "Message doesn't show!!! ");
+        WaitUtils.waitUntilElementIsDisplayedAndInDOM(mp.betAcceptedMsg, 10);
+        Assert.assertTrue(checkElementIsDisplayed(mp.betAcceptedMsg), "Message doesn't show");
+
     }
 }
